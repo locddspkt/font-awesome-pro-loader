@@ -9,7 +9,7 @@ Easy to load the SVG icons in the specific folder with only one command
 Clone the source into the project
 
 ```
-git clone https://locddspkt@bitbucket.org/locddspkt/font-awesome-pro-loader.git
+git clone https://github.com/locddspkt/font-awesome-pro-loader.git
 ```
 
 Include the class
