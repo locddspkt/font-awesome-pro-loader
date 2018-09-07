@@ -4,10 +4,27 @@
 namespace FaLoader;
 
 
-
+/***
+ * Class Icons
+ * change: save cache icon for each session
+ * @package FaLoader
+ */
 class Icons {
 
     public static $defaultIconsFolder = false; //if not set, use the folder of this project
+
+    /***
+     * key = icon name
+     * value = [
+     *      path
+     *      content = content of that path
+     * ]
+     *
+     * more than one key can have the same path
+     *
+     * @var array
+     */
+    public static $loadedIcons = [];
 
     /***
      * set the default folder and some options for the project
@@ -16,6 +33,7 @@ class Icons {
     public static function init($defaultFolder = false) {
         self::$defaultIconsFolder = $defaultFolder;
     }
+
     /***
      * load the icon in the file (dir include)
      *  the icon can be included the extension (.svg) or not. The order to load =
@@ -26,33 +44,79 @@ class Icons {
      * @return string content of the file
      */
     public static function Load($iconName) {
+        //try on session first
+        //1. via key
+        if (isset(self::$loadedIcons[$iconName])) return self::$loadedIcons[$iconName]['content'];
+
+        //2. via path
+
         //try with the icon name first
-        if (file_exists($iconName)) return file_get_contents($iconName);
+        if (file_exists($iconName)) {
+            return self::checkAndGetContentFromPath($iconName, $iconName);
+        }
 
         $defaultFolder = self::$defaultIconsFolder;
         if ($defaultFolder === false) $defaultFolder = __DIR__ . '/icons/';
 
         $iconPathAndFileName = $defaultFolder . '/' . $iconName;
         //check existed first
-        if (file_exists($iconPathAndFileName)) return file_get_contents($iconPathAndFileName);
+        if (file_exists($iconPathAndFileName)) {
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
+        }
 
         //then add svg if not exist
         $extension = pathinfo($iconPathAndFileName, PATHINFO_EXTENSION);
         if (strtolower($extension) != 'svg') {
             //try it
             $iconPathAndFileName .= '.svg';
-            if (file_exists($iconPathAndFileName)) return file_get_contents($iconPathAndFileName);
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
         }
         else {
             //have svg but not have file --> try to remove it
             $pathinfo = pathinfo($iconPathAndFileName);
             $iconPathAndFileName = $pathinfo['dirname'] . '/' . $pathinfo['filename'];
-
-            if (file_exists($iconPathAndFileName)) return file_get_contents($iconPathAndFileName);
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
         }
 
         //no one existed, return false;
 
         return false;
+    }
+
+    /***
+     * get the content in the path, if not existed, get content then get (do not check path now)
+     * @param $iconName
+     * @param $path
+     * @return string content of the path
+     */
+    private static function checkAndGetContentFromPath($iconName, $path) {
+        foreach (self::$loadedIcons as $key => $icon) {
+            if ($icon['path'] == $path) {
+                //check if the content has value or not, if yes, add it, otherwise, get content then add
+                if (!empty($icon['content'])) return $icon['content'];
+
+                //last time wasn't success
+                if (file_exists($path)) {
+                    $icon['content'] = file_get_contents($path);
+                }
+                return $icon['content'];
+            }
+        }
+
+        //do not have, add then return
+        if (file_exists($path)) {
+            self::$loadedIcons[$iconName] = [
+                'path' => $path,
+                'content' => file_get_contents($path)
+            ];
+        }
+        else {
+            self::$loadedIcons[$iconName] = [
+                'path' => $path,
+                'content' => false
+            ];
+        }
+
+        return self::$loadedIcons[$iconName]['content'];
     }
 }
