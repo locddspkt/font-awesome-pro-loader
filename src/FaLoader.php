@@ -10,8 +10,11 @@ namespace FaLoader;
  * @package FaLoader
  */
 class Icons {
+    private static $LICENSE_MEINTION = "<!-- For the best support, please buy the pro license at https://fontawesome.com/ -->";
 
     public static $defaultIconsFolder = false; //if not set, use the folder of this project
+
+
 
     /***
      * key = icon name
@@ -97,7 +100,7 @@ class Icons {
 
                 //last time wasn't success
                 if (file_exists($path)) {
-                    $icon['content'] = file_get_contents($path);
+                    $icon['content'] = file_get_contents($path) . self::$LICENSE_MEINTION;
                 }
                 return $icon['content'];
             }
@@ -107,7 +110,7 @@ class Icons {
         if (file_exists($path)) {
             self::$loadedIcons[$iconName] = [
                 'path' => $path,
-                'content' => file_get_contents($path)
+                'content' => file_get_contents($path) . self::$LICENSE_MEINTION
             ];
         }
         else {
