@@ -36,7 +36,7 @@ The test file is test/test.php
 
 ## Running the demo page
 
-webroot/demo.php
+[webroot/demo.php](https://hptsoft.com/font-awesome-pro-loader/demo.php)
 
 ## License
 
