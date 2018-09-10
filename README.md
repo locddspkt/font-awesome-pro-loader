@@ -38,6 +38,11 @@ The test file is test/test.php
 
 [webroot/demo.php](https://hptsoft.com/font-awesome-pro-loader/demo.php)
 
+## Download icons
+
+[From Youtube](https://youtu.be/b5MxmXZQRmE)
+
+
 ## License
 
 This project is licensed under the MIT License
