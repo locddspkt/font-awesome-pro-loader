@@ -5,6 +5,7 @@ FaLoader\Icons::init(__DIR__ . '/test/fa-pro-icons');
 
 $appleProIcon = FaLoader\Icons::Load('far_fa-apple-alt.svg');
 $copyProIcon = FaLoader\Icons::Load('fal_fa-copy.svg');
+$copyPro = FaLoader\Icons::Load('icon-pro.svg');
 
 ?>
 <html>
@@ -12,7 +13,7 @@ $copyProIcon = FaLoader\Icons::Load('fal_fa-copy.svg');
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- END bootstrap css -->
-
+    <link data-prerender="keep" rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- bootstrap js -->
@@ -21,17 +22,19 @@ $copyProIcon = FaLoader\Icons::Load('fal_fa-copy.svg');
     <!-- END bootstrap js -->
 
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="src/css/pre-load.css" crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container">
     <div class="w-100 text-center">
         <a class="navbar-brand">Fontawesome Pro demo</a>
     </div>
-    <button class="btn btn-success fa-icon-h-16-wrapper"><i class="fab fa-apple"></i> Apple Free (fab fa-apple)</button>
-    <button class="btn btn-success fa-icon-h-16-wrapper"><?= $appleProIcon ?> Apple Pro (far fa-apple-alt)</button>
+    <button class="btn btn-success"><i class="fab fa-apple"></i> Apple Free (fab fa-apple)</button>
+    <button class="btn btn-success"><?= $appleProIcon ?> Apple Pro (far fa-apple-alt)</button>
     <div class="w-100" style="height: 10px"></div>
-    <button class="btn btn-success fa-icon-h-16-wrapper"><i class="fas fa-copy"></i> Copy (fas fa-copy)</button>
-    <button class="btn btn-success fa-icon-h-16-wrapper"><?= $copyProIcon ?> Copy pro (fal fa-copy)</button>
+    <button class="btn btn-success"><i class="fas fa-copy"></i> Copy (fas fa-copy)</button>
+    <button class="btn btn-success"><?= $copyProIcon ?> Copy pro (fal fa-copy)</button>
 </div>
 <style>
 

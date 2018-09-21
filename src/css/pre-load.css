@@ -1,0 +1,5 @@
+/*-- prevent load fontawesome before --*/
+.svg-inline--fa {
+    height: 1em;
+    vertical-align: -.125em
+}
