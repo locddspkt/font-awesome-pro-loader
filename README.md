@@ -27,12 +27,21 @@ FaLoader\Icons::init('path/to/the/icon/folder/');
 Load the icon with this command
 
 ```
-FaLoader\Icons::load('icon-name');
+FaLoader\Icons::Load('icon-name');
 ```
 
 ## Running the tests
 
 The test file is test/test.php
+
+## Running the demo page
+
+[webroot/demo.php](https://hptsoft.com/font-awesome-pro-loader/demo.php)
+
+## Download icons
+
+[From Youtube](https://youtu.be/b5MxmXZQRmE)
+
 
 ## License
 
