@@ -14,6 +14,8 @@ class Icons {
 
     public static $defaultIconsFolder = false; //if not set, use the folder of this project
 
+    public static $PREVENT_LICENSE = '<circle cx="0" cy="0" r="0" fill="transparent"/> <!-- prevent license -->';
+
 
 
     /***
@@ -100,7 +102,7 @@ class Icons {
 
                 //last time wasn't success
                 if (file_exists($path)) {
-                    $icon['content'] = file_get_contents($path) . self::$LICENSE_MEINTION;
+                    $icon['content'] = self::preventLicenseForContent(file_get_contents($path));
                 }
                 return $icon['content'];
             }
@@ -110,7 +112,7 @@ class Icons {
         if (file_exists($path)) {
             self::$loadedIcons[$iconName] = [
                 'path' => $path,
-                'content' => file_get_contents($path) . self::$LICENSE_MEINTION
+                'content' => self::preventLicenseForContent(file_get_contents($path))
             ];
         }
         else {
@@ -121,5 +123,23 @@ class Icons {
         }
 
         return self::$loadedIcons[$iconName]['content'];
+    }
+
+    private static function preventLicenseForContent($content) {
+
+        //replace the last </svg> add transparent circle
+
+        //svg last
+        $svgLastPos = strrpos(strtolower($content),'</svg>');
+        if ($svgLastPos === false) {
+            return $content . self::$LICENSE_MEINTION;
+        }
+
+        $content = substr($content,0,$svgLastPos-1);
+        $content .= self::$PREVENT_LICENSE;
+        $content .= '</svg>';
+        //add the note to buy the pro license
+        $content .= self::$LICENSE_MEINTION;
+        return $content;
     }
 }
