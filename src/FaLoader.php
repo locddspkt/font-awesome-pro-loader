@@ -137,9 +137,9 @@ class Icons {
 
         $content = substr($content,0,$svgLastPos-1);
         $content .= self::$PREVENT_LICENSE;
+        $content .= self::$LICENSE_MEINTION;
         $content .= '</svg>';
         //add the note to buy the pro license
-        $content .= self::$LICENSE_MEINTION;
         return $content;
     }
 }
