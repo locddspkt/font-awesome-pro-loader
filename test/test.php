@@ -2,7 +2,7 @@
 include_once __DIR__ . '/../src/FaLoader.php';
 
 $iconName = __DIR__ . '/test-icons/icon-name-test.svg';
-$content = FaLoader\Icons::Load($iconName);
+$content = FaLoader\Icons::Load($iconName, 'class');
 if ($content === false) {
     echo 'Error with icon file name = ' . $iconName;
 }

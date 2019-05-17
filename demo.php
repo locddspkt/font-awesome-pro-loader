@@ -5,7 +5,7 @@ FaLoader\Icons::init(__DIR__ . '/test/fa-pro-icons');
 
 $appleProIcon = FaLoader\Icons::Load('far_fa-apple-alt.svg');
 $copyProIcon = FaLoader\Icons::Load('fal_fa-copy.svg');
-$copyPro = FaLoader\Icons::Load('icon-pro.svg');
+$copyPro = FaLoader\Icons::Load('icon-pro.svg', 'copy-in-red-color');
 
 ?>
 <html>
@@ -26,6 +26,11 @@ $copyPro = FaLoader\Icons::Load('icon-pro.svg');
 
 </head>
 <body>
+<style>
+    .copy-in-red-color {
+        color: red;
+    }
+</style>
 <div class="container">
     <div class="w-100 text-center">
         <a class="navbar-brand">Fontawesome Pro demo</a>
