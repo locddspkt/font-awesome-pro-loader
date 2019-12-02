@@ -36,7 +36,7 @@ The test file is test/test.php
 
 ## Running the demo page
 
-[webroot/demo.php](https://hptsoft.com/font-awesome-pro-loader/demo.php)
+[webroot/demo.php](https://demo.hptsoft.com/font-awesome-pro-loader/demo.php)
 
 ## Download icons
 
