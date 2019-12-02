@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/src/FaLoader.php';
 
-FaLoader\Icons::init(__DIR__ . '/test/fa-pro-icons');
+FaLoader\Icons::init(__DIR__ . '/demo/fa-pro-icons');
 
 $appleProIcon = FaLoader\Icons::Load('far_fa-apple-alt.svg');
 $copyProIcon = FaLoader\Icons::Load('fal_fa-copy.svg','copy-in-red-color fa-4x');
