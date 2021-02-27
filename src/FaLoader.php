@@ -1,8 +1,8 @@
 <?php
 
+
 namespace FaLoader;
 
-include_once __DIR__ . '/CommonFunction.php';
 
 /***
  * Class Icons
@@ -15,6 +15,7 @@ class Icons {
     public static $defaultIconsFolder = false; //if not set, use the folder of this project
 
     public static $PREVENT_LICENSE = '<circle cx="0" cy="0" r="0" fill="transparent"/> <!-- prevent license -->';
+
 
 
     /***
@@ -45,21 +46,18 @@ class Icons {
      *      2. file name with svg
      *      3. file name that is removed the svg
      * @param $iconName can include .svg and can not. load
-     * @param $externalClass add class for svg
      * @return string content of the file
      */
-    public static function Load($iconName, $externalClass = false) {
+    public static function Load($iconName) {
         //try on session first
         //1. via key
-        if (isset(self::$loadedIcons[$iconName])) {
-            return self::applyClassForContent(self::$loadedIcons[$iconName]['content'], $externalClass);
-        }
+        if (isset(self::$loadedIcons[$iconName])) return self::$loadedIcons[$iconName]['content'];
 
         //2. via path
 
         //try with the icon name first
         if (file_exists($iconName)) {
-            return self::applyClassForContent(self::checkAndGetContentFromPath($iconName, $iconName), $externalClass);
+            return self::checkAndGetContentFromPath($iconName, $iconName);
         }
 
         $defaultFolder = self::$defaultIconsFolder;
@@ -68,7 +66,7 @@ class Icons {
         $iconPathAndFileName = $defaultFolder . '/' . $iconName;
         //check existed first
         if (file_exists($iconPathAndFileName)) {
-            return self::applyClassForContent(self::checkAndGetContentFromPath($iconName, $iconPathAndFileName), $externalClass);
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
         }
 
         //then add svg if not exist
@@ -76,13 +74,13 @@ class Icons {
         if (strtolower($extension) != 'svg') {
             //try it
             $iconPathAndFileName .= '.svg';
-            return self::applyClassForContent(self::checkAndGetContentFromPath($iconName, $iconPathAndFileName), $externalClass);
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
         }
         else {
             //have svg but not have file --> try to remove it
             $pathinfo = pathinfo($iconPathAndFileName);
             $iconPathAndFileName = $pathinfo['dirname'] . '/' . $pathinfo['filename'];
-            return self::applyClassForContent(self::checkAndGetContentFromPath($iconName, $iconPathAndFileName), $externalClass);
+            return self::checkAndGetContentFromPath($iconName, $iconPathAndFileName);
         }
 
         //no one existed, return false;
@@ -132,25 +130,16 @@ class Icons {
         //replace the last </svg> add transparent circle
 
         //svg last
-        $svgLastPos = strrpos(strtolower($content), '</svg>');
+        $svgLastPos = strrpos(strtolower($content),'</svg>');
         if ($svgLastPos === false) {
             return $content . self::$LICENSE_MEINTION;
         }
 
-        $content = substr($content, 0, $svgLastPos - 1);
+        $content = substr($content,0,$svgLastPos-1);
         $content .= self::$PREVENT_LICENSE;
         $content .= self::$LICENSE_MEINTION;
         $content .= '</svg>';
         //add the note to buy the pro license
-        return $content;
-    }
-
-
-    private static function applyClassForContent($content, $externalClass = false) {
-        if ($externalClass === false) return $content;
-        $currentClass = CommonFunction::getContentBetween2Patterns($content, 'class="', '"');
-
-        $content = str_replace('class="' . $currentClass, 'class="' . $currentClass . ' ' . $externalClass, $content);
         return $content;
     }
 }
